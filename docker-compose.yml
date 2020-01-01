@@ -1,0 +1,38 @@
+version: "3.7"
+services: 
+  ansible-test1:
+    build: https://github.com/nsa5953/ansible-docker.git
+    image: centos8-systemd
+    privileged: true
+    ports:
+      - "5001:22"
+      - "5080:80"
+    networks: 
+      - ansible-test-network
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro 
+
+  ansible-test2:
+    image: centos8-systemd:latest
+    privileged: true
+    ports: 
+      - "5002:22"
+    networks:
+      - ansible-test-network
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+  ansible-test3:
+    image: centos8-systemd:latest
+    privileged: true
+    ports:
+      - "5003:22"
+    networks:
+      - ansible-test-network
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+networks:
+  ansible-test-network: {}
+
+
