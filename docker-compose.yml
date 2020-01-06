@@ -4,6 +4,7 @@ services:
     build: https://github.com/nsa5953/ansible-docker.git
     image: centos8-systemd
     privileged: true
+    restart: always
     ports:
       - "5001:22"
       - "5080:80"
@@ -16,6 +17,7 @@ services:
   ansible-test2:
     image: centos8-systemd:latest
     privileged: true
+    restart: always
     ports: 
       - "5002:22"
     networks:
@@ -26,6 +28,7 @@ services:
   ansible-test3:
     image: centos8-systemd:latest
     privileged: true
+    restart: always
     ports:
       - "5003:22"
     networks:
