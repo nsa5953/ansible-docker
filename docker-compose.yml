@@ -7,6 +7,7 @@ services:
     ports:
       - "5001:22"
       - "5080:80"
+      - "443:443"
     networks: 
       - ansible-test-network
     volumes:
