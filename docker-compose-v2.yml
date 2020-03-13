@@ -1,0 +1,65 @@
+version: "3.7"
+services: 
+  skyfall-RHN-server:
+    container_name: skyfall-rhn-server
+    build: https://github.com/nsa5953/ansible-docker.git
+    image: centos8-systemd
+    privileged: true
+    restart: always
+    ports:
+      - "5001:22"
+      - "5080:80"
+      - "443:443"
+    networks: 
+      skyfall-network:
+        ipv4_address: 172.24.0.2
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro 
+
+  skyfall-rhn-1:
+    container_name: skyfall-rhn-1
+    image: centos8-systemd:latest
+    privileged: true
+    restart: always
+    ports: 
+      - "5002:22"
+    networks:
+      skyfall-network:
+        ipv4_address: 172.24.0.3
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+  skyfall-rhn-2:
+    container_name: skyfall-rhn-2
+    image: centos8-systemd:latest
+    privileged: true
+    restart: always
+    ports:
+      - "5003:22"
+    networks:
+      skyfall-network:
+        ipv4_address: 172.24.0.4
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+  skyfall-ubt-1:
+    container_name: skyfall-ubt-1
+    image: ubuntu:latest
+    tty: true
+    privileged: true
+    restart: always
+    ports: 
+      - "5004:22"
+    networks:
+      skyfall-network:
+        ipv4_address: 172.24.0.10
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+networks:
+  skyfall-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.24.0.0/24"
+
