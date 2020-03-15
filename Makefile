@@ -1,8 +1,8 @@
+# Shell Functions
 SHELL := /bin/bash
 YELLOW := "\e[1;33m"
 NC := "\e[0m"
 
-# Shell Functions
 INFO := @bash -c '\
   printf $(YELLOW); \
   echo "=> $$1"; \
@@ -14,8 +14,10 @@ PROJECT_NAME ?= ansible-docker
 # Compose file
 COMPOSE_FILE := -f docker-compose-v2.yml
 
+# Spcifiy makefile targets
 .PHONY: build start clean prune
 
+# Target functions: 
 build:
 	${INFO} "Building Skyfall RHN Server Services ....."
 	@ docker-compose $(COMPOSE_FILE) build skyfall-RHN-server
@@ -56,6 +58,7 @@ rebuild:
 		@make -s clean
 		@make -s build
 		@make -s start
+
 
 
 	
