@@ -54,10 +54,10 @@ prune:
 	${INFO} "Destroy Complete, Reclaim your Space Now :) !!! .........."
 
 rebuild:
-		${INFO} "Rebuild process ==> Clean, build and start"
-		@make -s clean
-		@make -s build
-		@make -s start
+	${INFO} "Rebuild process ==> Clean, build and start"
+	@make -s clean
+	@make -s build
+	@make -s start
 
 
 
