@@ -1,43 +1,61 @@
 SHELL := /bin/bash
+YELLOW := "\e[1;33m"
+NC := "\e[0m"
+
+# Shell Functions
+INFO := @bash -c '\
+  printf $(YELLOW); \
+  echo "=> $$1"; \
+  printf $(NC)' SOME_VALUE
+
 # declaring variables
 PROJECT_NAME ?= ansible-docker
 
 # Compose file
-COMPOSE_FILE := docker/docker-compose-v2.yml
+COMPOSE_FILE := -f docker-compose-v2.yml
 
-.PHONY: build test clean prune
+.PHONY: build start clean prune
 
 build:
-	@echo '************ Building Skyfall RHN Server Services ************'
-	@ docker-compose -f $(COMPOSE_FILE) build skyfall-RHN-server
+	${INFO} "Building Skyfall RHN Server Services ....."
+	@ docker-compose $(COMPOSE_FILE) build skyfall-RHN-server
 
-	@echo '************  Pulling Latest Images ************'
-	@ docker-compose -f $(COMPOSE_FILE) pull skyfall-ubt-1
+	${INFO} "Pulling Latest Images ....."
+	@ docker-compose $(COMPOSE_FILE) pull skyfall-ubt-1
 
-	@echo '************ Building Skyfall RHN node services ************'
-	@ docker-compose -f $(COMPOSE_FILE) build skyfall-rhn-1 skyfall-rhn-2
+	${INFO} "Building Skyfall RHN node services ....."
+	@ docker-compose $(COMPOSE_FILE) build skyfall-rhn-1 skyfall-rhn-2
 
-	@echo '************ Building Skyfall UBT node service ************'
-	@ docker-compose -f $(COMPOSE_FILE) build skyfall-ubt-1
-	@echo 'Build Complete ************'
+	${INFO} "Building Skyfall UBT node service ....."
+	@ docker-compose $(COMPOSE_FILE) build skyfall-ubt-1
+	${INFO} "Build Complete ....."
 	
 
-test:
-	@echo '************ Starting Services stacks ************'
-	@ docker-compose up -d 
-	@echo 'Start Complete ************'
+start:
+	${INFO} "Starting Services stacks ....."
+	@ docker-compose $(COMPOSE_FILE) up -d 
+	${INFO} "Start Complete ....."
 
 clean:
-	@echo '************ Clean service stack ************'
-	@ docker-compose down --rmi all --remove-orphan 
-	@echo 'Clean Complete ************'
+	${INFO} "Clean service stack ....."
+	@ docker-compose $(COMPOSE_FILE) down 
+	${INFO} "Clean Complete ....."
 	
+cleanall:
+	${INFO} "Clean service stack ....."
+	@ docker-compose $(COMPOSE_FILE) down --rmi all --remove-orphan 
+	${INFO} "Clean Complete ....."
 
 prune:
-	@echo '************ Destroy Everything ************'
+	${INFO} "Destroy Everything ....."
 	@ docker system prune -af
-	@echo '************ Destroy Complete, Now Reclaim your Space !!! ************'
+	${INFO} "Destroy Complete, Reclaim your Space Now :) !!! .........."
 
+rebuild:
+		${INFO} "Rebuild process ==> Clean, build and start"
+		@make -s clean
+		@make -s build
+		@make -s start
 
 
 	
