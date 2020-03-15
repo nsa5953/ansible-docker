@@ -1,3 +1,5 @@
+# Author: Nilesh Attarde
+# Build script to create, remove, clean, rebuild docker multiple containers and its associtated images
 # Shell Functions
 SHELL := /bin/bash
 YELLOW := "\e[1;33m"
@@ -32,7 +34,6 @@ build:
 	@ docker-compose $(COMPOSE_FILE) build skyfall-ubt-1
 	${INFO} "Build Complete ....."
 	
-
 start:
 	${INFO} "Starting Services stacks ....."
 	@ docker-compose $(COMPOSE_FILE) up -d 
