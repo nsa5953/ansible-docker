@@ -44,7 +44,10 @@ services:
 
   skyfall-ubt-1:
     container_name: skyfall-ubt-1
-    image: ubuntu:latest
+    build:
+      context: .
+      dockerfile: ubuntu-ssh/Dockerfile-ubuntu
+    image: ubuntu-ssh
     tty: true
     privileged: true
     restart: always

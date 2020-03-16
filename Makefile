@@ -60,6 +60,9 @@ rebuild:
 	@make -s build
 	@make -s start
 
+check:
+	${INFO} "Check docker-compose stack ....."
+	@ docker-compose $(COMPOSE_FILE) ps -a
 
 
 	
