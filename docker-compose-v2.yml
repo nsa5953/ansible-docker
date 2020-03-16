@@ -42,8 +42,9 @@ services:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
 
-  skyfall-ubt-1:
+  skyfall-ubt-1:  
     container_name: skyfall-ubt-1
+# Date: 16 March 2020 ==> New context added for dockerfile-ubuntu    
     build:
       context: .
       dockerfile: ubuntu-ssh/Dockerfile-ubuntu
