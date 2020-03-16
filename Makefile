@@ -60,6 +60,7 @@ rebuild:
 	@make -s build
 	@make -s start
 
+# Date: 16 March 2020 => Added Check target
 check:
 	${INFO} "Check docker-compose stack ....."
 	@ docker-compose $(COMPOSE_FILE) ps -a
