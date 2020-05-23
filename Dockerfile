@@ -19,7 +19,7 @@ RUN mkdir /var/run/sshd
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config && sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
 RUN chmod 755 /tmp/useradm.sh && chmod 755 /tmp/useradm.sh
-ENV 
+ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.252.b09-2.el8_1.x86_64
 RUN ./tmp/useradm.sh
 VOLUME [ "/sys/fs/cgroup" ]
 EXPOSE 22
