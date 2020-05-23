@@ -11,7 +11,7 @@ rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
 rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
 rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
-RUN yum install -y sudo zip unzip openssh-server sudo passwd ; yum clean all
+RUN yum install -y sudo zip unzip openssh-server sudo passwd java-1.8.0-openjdk.x86_64; yum clean all
 RUN systemctl enable sshd.service
 COPY id_rsa.pub /tmp/id_rsa.pub
 ADD useradm.sh /tmp/useradm.sh
